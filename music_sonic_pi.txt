@@ -1,0 +1,26 @@
+use_random_seed 0
+
+av = 1.5
+
+in_thread do
+  live_loop :mainloop do
+    x = choose([20,25,30,35,40,45,50,55,60,65,70])
+    y = choose([2.5,4,5.5,7,8.5,10])
+    play_chord [x-y,x,x+y,x+y+y], amp: av
+    sleep x / 100.0
+    use_random_seed x+y+2
+  end
+end
+
+in_thread do
+  live_loop :extra do
+    3.times do
+      sync :mainloop
+      x = choose([20,25,30,35,40,45,50,55,60,65,70])
+      y = choose([2.5,4,5.5,7,8.5,10])
+      play x + (y/2.0), amp: av
+      sleep x / 120.0
+    end
+    sleep 4
+  end
+end
