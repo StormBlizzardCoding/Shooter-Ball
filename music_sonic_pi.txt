@@ -1,3 +1,4 @@
+# Shooter-Ball Music
 use_random_seed 0
 
 av = 1.5
